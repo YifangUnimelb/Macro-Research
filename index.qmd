@@ -1,6 +1,6 @@
 ---
 title: "Forcasting Inflation and Interest Rate in Australia"
-author: "Yifang Wang"
+author: "Yifang"
 
 execute:
   echo: false
