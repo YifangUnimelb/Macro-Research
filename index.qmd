@@ -10,7 +10,7 @@ bibliography: references.bib
 
 > **Abstract.** This is a suggested formatting for your abstract. This **quarto** document is a template for your report. It includes some basic ways of working with such documents. You are invited to learn more about developing online reports with this technology.
 >
-> **Keywords.** bsvars, impulse responses, quarto, R, tax shocks
+> **Keywords.** bsvars, interest rate, inflation, quarto, R, Australian economy, monetary policy 
 
 # Introduction
 
