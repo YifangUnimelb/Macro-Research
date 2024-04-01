@@ -10,15 +10,45 @@ bibliography: references.bib
 
 > **Abstract.** This paper forecastes Australian inflation and interest rate using Bayesian Vector Regressive Model with Stochastic Volatility and a student-t distributed error, with the purpose of allowing time varying volatility and capturing sudden increase in volatility during extreme period such as COVID-19.It is an application of such method, which is suggested as a significant improvement over a standard BVAR, to the Australian macroeconomic variables to generate spot and density forecast using post COVID data.
 
->
 > **Keywords.** BVARs, Stochastic Volatility, t-distributed error, inflation, interest rate, Australian economy
 
 # Introduction
 
-This is a template repository for the Research Report for **Macroeconometrics**. Learn more about about developing online reports with **quarto** at [quarto.org](https://quarto.org/).
+**Objective:** This paper aims to forecast Australian short term interest rate and inflation. It follows the method in Hartwig(2022), using a BVAR-SV model with its error covariance matrix being student-t distribution.
 
-## A Simple Example
+**Question:** Can the model suggested produce reliable spot and density forecast for Australian inflation and interest rate?
 
+**Motivation:** Volatility variation across time in macroeconomic variables is widely explored in literature(Bloom,2014), which the standard Gaussian error modeling may fail to capture and then leads to unreliable results. Hartwig(2022) suggests that several BVAR models with modified volatility distribution which differentiate from the standard Gaussian perform better under likelihood measurement. The best fitting one with post-COVID19 data is BVAR-t-SV. The stochastic process captures the time persistence of volatility, which is evident in variables such as short term interest rate(Ball and Torous,1999). A student-t distributed error, with relatively fatter tails, can recognize some extreme volatility as temporary spikes instead of persistent effect. The forecast focus on inflation and interest rate due to their strong relevance to policy making and people's daily lives. Many challenges arise post-COVID for government to facilitate the revitalization of the economy, where forecast plays its roles.
+
+## Data
+
+The following are some standard variables to include in a macroeconomics forecast:
+
+**Short term interest rate:**
+
+**Money aggregate(M1):**
+
+**Inflation rate:** derived from **Consumer Price Index**
+
+**Real GDP:**
+
+**Unemployment:**
+
+There are some candidates for forecasting inflation and interest rate(needs further model fitting):
+
+**Wage rate:**
+
+**Energy price:**
+
+**Exchange rate to USD:**
+
+**Exchange rate to Chinese Yuan:**
+
+**GDP growth of OECD countries:**
+
+**GDP growth of China:**
+
+**GDP growth of the US:**
 
 
 ## References {.unnumbered}
