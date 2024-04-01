@@ -7,17 +7,24 @@
     "text": "Abstract. This paper forecastes Australian inflation and interest rate using Bayesian Vector Regressive Model with Stochastic Volatility and a student-t distributed error, with the purpose of allowing time varying volatility and capturing sudden increase in volatility during extreme period such as COVID-19.It is an application of such method, which is suggested as a significant improvement over a standard BVAR, to the Australian macroeconomic variables to generate spot and density forecast using post COVID data."
   },
   {
-    "objectID": "index.html#data",
-    "href": "index.html#data",
+    "objectID": "index.html#time-series-plot",
+    "href": "index.html#time-series-plot",
     "title": "Forecasting Inflation and Interest Rate in Australia",
-    "section": "Data",
-    "text": "Data\nThe following are some standard variables to include in a macroeconomics forecast:\nShort term interest rate:\nMoney aggregate(M1):\nInflation rate: derived from Consumer Price Index\nReal GDP:\nUnemployment:\nThere are some candidates for forecasting inflation and interest rate(needs further model fitting):\nWage rate:\nEnergy price:\nExchange rate to USD:\nExchange rate to Chinese Yuan:\nGDP growth of OECD countries:\nGDP growth of China:\nGDP growth of the US:"
+    "section": "Time Series Plot",
+    "text": "Time Series Plot\nhuh"
   },
   {
-    "objectID": "index.html#references",
-    "href": "index.html#references",
+    "objectID": "index.html#acf-and-pacf",
+    "href": "index.html#acf-and-pacf",
     "title": "Forecasting Inflation and Interest Rate in Australia",
-    "section": "References",
-    "text": "References"
+    "section": "ACF and PACF",
+    "text": "ACF and PACF\nhuh"
+  },
+  {
+    "objectID": "index.html#augmented-dickey-fuller",
+    "href": "index.html#augmented-dickey-fuller",
+    "title": "Forecasting Inflation and Interest Rate in Australia",
+    "section": "Augmented Dickey-Fuller",
+    "text": "Augmented Dickey-Fuller\nhuh"
   }
 ]

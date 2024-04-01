@@ -20,7 +20,7 @@ bibliography: references.bib
 
 **Motivation:** Volatility variation across time in macroeconomic variables is widely explored in literature(Bloom,2014), which the standard Gaussian error modeling may fail to capture and then leads to unreliable results. Hartwig(2022) suggests that several BVAR models with modified volatility distribution which differentiate from the standard Gaussian perform better under likelihood measurement. The best fitting one with post-COVID19 data is BVAR-t-SV. The stochastic process captures the time persistence of volatility, which is evident in variables such as short term interest rate(Ball and Torous,1999). A student-t distributed error, with relatively fatter tails, can recognize some extreme volatility as temporary spikes instead of persistent effect. The forecast focus on inflation and interest rate due to their strong relevance to policy making and people's daily lives. Many challenges arise post-COVID for government to facilitate the revitalization of the economy, where forecast plays its roles.
 
-## Data
+# Data
 
 The following are some standard variables to include in a macroeconomics forecast:
 
@@ -50,5 +50,26 @@ There are some candidates for forecasting inflation and interest rate(needs furt
 
 **GDP growth of the US:**
 
+## Time Series Plot
 
-## References {.unnumbered}
+huh
+
+## ACF and PACF
+
+huh
+
+## Augmented Dickey-Fuller
+
+huh
+
+# Model
+
+Here presents the Bayesian VAR with Stochastic Student-t volatility, the general form of a VAR(p), as in Hartwig(2022):
+
+$$y_t = a_0 +A_1y_{t-1}+...+A_py_{t-p}+ \epsilon_t $$
+
+where $y_t$ is a $n \times 1$ vector and $n$ is the number of variables. $a_0$ is the $n \times 1$ intercept vector. $A_p$ is $n \times n$ coefficient matrix for each lag order $p$. Put it in compact matrix notation:
+
+$$Y = XA+E$$ where $Y_{T \times n}=(y_1', y_2',...,y_T')'$, $X_{T \times K}=(x_1', x_2',...,x_T')'$. Each $x_{K \times 1}=(1, y_{t-1}',...,y_{t-p}')'$. $A$ is a compact coefficient matrix $A_{K \times n}=(a_0', A_1',...,A_p')'$ and $E_{T \times n}=(\epsilon_1', \epsilon_2',...,\epsilon_T')'$. Note, $K = 1+pn$.
+
+References {.unnumbered}
