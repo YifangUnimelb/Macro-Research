@@ -1,5 +1,5 @@
 ---
-title: "Forcasting Inflation and Interest Rate in Australia"
+title: "Forecasting Inflation and Interest Rate in Australia"
 author: "Yifang"
 
 execute:
@@ -8,9 +8,10 @@ execute:
 bibliography: references.bib
 ---
 
-> **Abstract.** This is a suggested formatting for your abstract. This **quarto** document is a template for your report. It includes some basic ways of working with such documents. You are invited to learn more about developing online reports with this technology.
+> **Abstract.** This paper forecastes Australian inflation and interest rate using Bayesian Vector Regressive Model with Stochastic Volatility and a student-t distributed error, with the purpose of allowing time varying volatility and capturing sudden increase in volatility during extreme period such as COVID-19.It is an application of such method, which is suggested as a significant improvement over a standard BVAR, to the Australian macroeconomic variables to generate spot and density forecast using post COVID data.
+
 >
-> **Keywords.** bsvars, interest rate, inflation, quarto, R, Australian economy
+> **Keywords.** BVARs, Stochastic Volatility, t-distributed error, inflation, interest rate, Australian economy
 
 # Introduction
 
