@@ -22,13 +22,13 @@ bibliography: references.bib
 
 # Data
 
-All data is obtained from the RBA. Daily or monthly data is converted to monthly format by averaging. Following Chan(2017, other than cash rate and unemployment, varibles will be transformed using log difference. These are some standard variables to include in a macroeconomics forecast:
+All data is obtained from the RBA. Daily or monthly data is converted to quaterly format by averaging. Following Chan(2017, other than cash rate and unemployment, variables will be transformed using log difference in BVAR. These are some standard variables to include in a macroeconomics forecast:
 
 **Cash rate:** the cash rate target (series_id:FIRMMCRTD)
 
-**Money aggregate(M1):** the seasonall adjusted M1 money aggregate (series_id:DMAM1S)
+**Money aggregate(M1):** the seasonal adjusted M1 money aggregate (series_id:DMAM1S)
 
-**Money aggregate(M3):** the seasonall adjusted M3 money aggregate (series_id:DMAM3S)
+**Money aggregate(M3):** the seasonal adjusted M3 money aggregate (series_id:DMAM3S)
 
 **Consumer Price Index** Consumer Price Index (series_id:GCPIAG)
 
@@ -36,10 +36,9 @@ All data is obtained from the RBA. Daily or monthly data is converted to monthly
 
 **Unemployment:** Unemployment rate in percent (series_id:GLFSUPSA)
 
-The data window covers 1990 Q1 to 2023 Q4, as the most up-to-date post-COVID data in Australia, similar to Hartwig(2022). 
+The data window covers 1990 Q1 to 2023 Q4, as the most up-to-date post-COVID data in Australia, similar to Hartwig(2022).
 
-
-```{r read data}
+```{r obtain data}
 #| echo: false
 #| message: false
 
@@ -94,10 +93,42 @@ cr <- cr %>% filter(Quarter != "2024Q1")
 
 ```
 
+```{r combine data}
+#| echo: false
+#| message: false
+#| 
+library(dplyr)
 
+# Assuming tibble1, tibble2, tibble3 are your tibbles
+# and you want columnA from tibble1, columnB from tibble2
+data <- bind_cols(
+  cpi %>% select(date),
+  cpi %>% select(value),
+  cr %>% select(Average),
+  gdp %>% select(value),
+  m1 %>% select(Average),
+  m3 %>% select(Average),
+  un_em %>% select(Average)# Add as many as needed
+)
+
+data <- data %>% rename(cpi = value...2, cr = Average...3, gdp = value...4, m1 = Average...5, m3 = Average...6, un_em = Average...7)
+```
 
 ## Time Series Plot
 
+```{r time series plot}
+#| echo: false
+#| message: false
+
+install.packages("ggplot2")
+library(ggplot2)
+
+ggplot(cr, aes(x = quarter, y = average)) +
+  geom_line() + # Creates the time series line
+  labs(x = "Year", y = "CPI", title = "Time Series Plot") +
+  theme_minimal() # Optional: Uses a minimal theme for the plot
+
+```
 huh
 
 ## ACF and PACF
