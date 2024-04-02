@@ -57,13 +57,6 @@ cr = read_rba(series_id = "FIRMMCRTD")
 m1 = read_rba(series_id = "DMAM1S") 
 m3 = read_rba(series_id = "DMAM3S") 
 
-```
-
-```{r clean data}
-#| echo: false
-#| message: false
-
-library(dplyr)
 cpi <- cpi %>% filter(date > as.Date("1989-12-31"))
 gdp <- gdp %>% filter(date > as.Date("1989-12-31"))
 m1 <- m1 %>% filter(date > as.Date("1989-12-31"))
@@ -76,13 +69,6 @@ m1 <- m1 %>% filter(date < as.Date("2024-01-01"))
 m3 <- m3 %>% filter(date < as.Date("2024-01-01"))
 un_em <- un_em %>% filter(date < as.Date("2024-01-01"))
 
-
-```
-
-```{r quater data}
-#| echo: false
-#| message: false
-
 library(dplyr)
 library(lubridate)
 
@@ -91,56 +77,25 @@ m1 <- m1 %>%
   group_by(Quarter) %>%
   summarize(Average = mean(value, na.rm = TRUE))
 
-
-```
-
-```{r quater data}
-
-library(dplyr)
-library(lubridate)
-
 m3 <- m3 %>%
   mutate(Quarter = paste(year(date), quarter(date), sep = "Q")) %>%
   group_by(Quarter) %>%
   summarize(Average = mean(value, na.rm = TRUE))
-
-
-```
-
-```{r quater data}
-
-library(dplyr)
-library(lubridate)
 
 un_em <- un_em %>%
   mutate(Quarter = paste(year(date), quarter(date), sep = "Q")) %>%
   group_by(Quarter) %>%
   summarize(Average = mean(value, na.rm = TRUE))
 
-
-```
-
-```{r quater data}
-
-library(dplyr)
-library(lubridate)
-
 cr <- cr %>%
   mutate(Quarter = paste(year(date), quarter(date), sep = "Q")) %>%
   group_by(Quarter) %>%
   summarize(Average = mean(value, na.rm = TRUE))
 
-
-```
-
-```{r quater data}
-
 cr <- cr %>% filter(Quarter != "2024Q1")
 
 ```
 
-```
-```
 
 
 ## Time Series Plot
