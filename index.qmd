@@ -22,33 +22,63 @@ bibliography: references.bib
 
 # Data
 
-The following are some standard variables to include in a macroeconomics forecast:
+All data is obtained from the RBA. Daily or monthly data is converted to monthly format by averaging. Following Chan(2017, other than cash rate and unemployment, varibles will be transformed using log difference. These are some standard variables to include in a macroeconomics forecast:
 
-**Short term interest rate:**
+**Cash rate:** the cash rate target (series_id:FIRMMCRTD)
 
-**Money aggregate(M1):**
+**Money aggregate(M1):** the seasonall adjusted M1 money aggregate (series_id:DMAM1S)
 
-**Inflation rate:** derived from **Consumer Price Index**
+**Money aggregate(M3):** the seasonall adjusted M3 money aggregate (series_id:DMAM3S)
 
-**Real GDP:**
+**Consumer Price Index** Consumer Price Index (series_id:GCPIAG)
 
-**Unemployment:**
+**Real GDP:** Gross Domestic Product in real terms (series_id:GGDPCVGDP)
 
-There are some candidates for forecasting inflation and interest rate(needs further model fitting):
+**Unemployment:** Unemployment rate in percent (series_id:GLFSUPSA)
 
-**Wage rate:**
+The data window covers 1990 Q1 to 2023 Q4, as the most up-to-date post-COVID data in Australia, similar to Hartwig(2022). 
 
-**Energy price:**
 
-**Exchange rate to USD:**
+```{r read data}
+#| echo: false
+#| message: false
 
-**Exchange rate to Chinese Yuan:**
+install.packages("readrba")
+library(readrba)
 
-**GDP growth of OECD countries:**
+browse_rba_series("aggregate")
 
-**GDP growth of China:**
+un_em = read_rba(series_id = "GLFSUPSA") 
+gdp = read_rba(series_id = "GGDPCVGDP")
+cpi = read_rba(series_id = "GCPIAG") 
 
-**GDP growth of the US:**
+cr = read_rba(series_id = "FIRMMCRTD")
+
+m1 = read_rba(series_id = "DMAM1S") 
+m3 = read_rba(series_id = "DMAM3S") 
+
+```
+
+```{r clean data}
+#| echo: false
+#| message: false
+
+library(dplyr)
+cpi <- cpi %>% filter(date > as.Date("1989-12-31"))
+gdp <- gdp %>% filter(date > as.Date("1989-12-31"))
+m1 <- m1 %>% filter(date > as.Date("1989-12-31"))
+m3 <- m3 %>% filter(date > as.Date("1989-12-31"))
+un_em <- un_em %>% filter(date > as.Date("1989-12-31"))
+
+cpi <- cpi %>% filter(date < as.Date("2024-01-01"))
+gdp <- gdp %>% filter(date < as.Date("2024-01-01"))
+m1 <- m1 %>% filter(date < as.Date("2024-01-01"))
+m3 <- m3 %>% filter(date < as.Date("2024-01-01"))
+un_em <- un_em %>% filter(date < as.Date("2024-01-01"))
+
+```
+
+
 
 ## Time Series Plot
 
