@@ -206,7 +206,7 @@ pm3l <- ggplot(data_trans, aes(date,m3_log)) + geom_line(size = 0.25)+labs(title
 
 ## ACF and PACF
 
-```{r ACF/PACF}
+```{r ACF}
 #| echo: false
 #| message: false
 #| warning: false
@@ -221,6 +221,16 @@ acf(data_trans$m1_log)
 acf(data_trans$m3_log)
 acf(data_trans$cr)
 acf(data_trans$un_em)
+
+```
+```{r PACF}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyr)
+
+data_trans <- drop_na(data_trans)
 
 pacf(data_trans$cpi_log)
 pacf(data_trans$gdp_log)
@@ -248,10 +258,20 @@ adf.test(data_trans$m3_log)
 adf.test(data_trans$cr)
 adf.test(data_trans$un_em)
 
+p_value <- c(0.01796, 0.01, 0.02154, 0.1622, 0.01, 0.3884)
+ADF_stats <- c(-3.8653, -5.765, -3.7918,-2.9958, -4.3135,-2.4522)
+Variable <- c("CPI_log", "GDP_log","M1_log","M3_log","Cash rate","Unemployment")
 
+adf_res <- cbind(Variable,ADF_stats , p_value)
+
+library(knitr)
+install.packages("kableExtra")
+library(kableExtra)
+
+kbl(adf_res) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
 
 ```
-
 
 # Model
 
