@@ -22,7 +22,7 @@ bibliography: references.bib
 
 # Data
 
-All data is obtained from the RBA. Daily or monthly data is converted to quaterly format by averaging. Following Chan(2017, other than cash rate and unemployment, variables will be transformed using log difference in BVAR. These are some standard variables to include in a macroeconomics forecast:
+All data is obtained from the RBA. Daily or monthly data is converted to quaterly format by averaging. Following Chan(2017, other than cash rate and unemployment, variables will be transformed using log difference times 400 in BVAR. These are some standard variables to include in a macroeconomics forecast:
 
 **Cash rate:** the cash rate target in percent (series_id:FIRMMCRTD)
 
@@ -112,6 +112,11 @@ data <- bind_cols(
 )
 
 data <- data %>% rename(cpi = value...2, cr = Average...3, gdp = value...4, m1 = Average...5, m3 = Average...6, un_em = Average...7)
+
+data_trans <- data %>%
+  mutate(cpi_log = c(NA, 400*diff(log(cpi))), gdp_log =c(NA, 400*diff(log(gdp))), m1_log =c(NA, 400*diff(log(m1))), m3_log =c(NA, 400*diff(log(m3))))
+
+data_trans <- data_trans %>% select(date, cpi_log, gdp_log, m1_log, m3_log, cr, un_em)
 ```
 
 ## Time Series Plot
