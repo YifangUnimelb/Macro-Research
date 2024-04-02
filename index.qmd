@@ -8,21 +8,21 @@ execute:
 bibliography: references.bib
 ---
 
-> **Abstract.** This paper forecastes Australian inflation and interest rate using Bayesian Vector Regressive Model with Stochastic Volatility and a student-t distributed error, with the purpose of allowing time varying volatility and capturing sudden increase in volatility during extreme period such as COVID-19.It is an application of such method, which is suggested as a significant improvement over a standard BVAR, to the Australian macroeconomic variables to generate spot and density forecast using post-COVID data.
+> **Abstract.** This paper forecasts Australian inflation and interest rate using Bayesian Vector Regressive Model with Stochastic Volatility and a multivariate-t distributed error, with the purpose of allowing time varying volatility and capturing sudden increase in volatility during extreme period such as COVID-19.It is an application of such method, which is suggested as a significant improvement over a standard BVAR, to the Australian macroeconomic variables to generate spot and density forecast using post-COVID data.
 
 > **Keywords.** BVARs, Stochastic Volatility, t-distributed error, inflation, interest rate, Australian economy
 
 # Introduction
 
-**Objective:** This paper aims to forecast Australian short term interest rate and inflation. It follows the method in Hartwig(2022), using a BVAR-SV model with its error covariance matrix being student-t distribution.
+**Objective:** This paper aims to forecast Australian short term interest rate and inflation. It follows the method in Hartwig(2022), using a BVAR-SV model with its error covariance matrix being multivariate-t distribution.
 
 **Question:** Can the model suggested produce reliable spot and density forecast for Australian inflation and interest rate?
 
-**Motivation:** Volatility variation across time in macroeconomic variables is widely explored in literature(Bloom,2014), which the standard Gaussian error modeling may fail to capture and then leads to unreliable results. Hartwig(2022) suggests that several BVAR models with modified volatility distribution which differentiate from the standard Gaussian perform better under likelihood measurement. The best fitting one with post-COVID19 data is BVAR-t-SV. The stochastic process captures the time persistence of volatility, which is evident in variables such as short term interest rate(Ball and Torous,1999). A student-t distributed error, with relatively fatter tails, can recognize some extreme volatility as temporary spikes instead of persistent effect. The forecast focus on inflation and interest rate due to their strong relevance to policy making and people's daily lives. Many challenges arise post-COVID for government to facilitate the revitalization of the economy, where forecast plays its roles.
+**Motivation:** Volatility variation across time in macroeconomic variables is widely explored in literature(Bloom,2014), which the standard Gaussian error modeling may fail to capture and then leads to unreliable results. Hartwig(2022) suggests that several BVAR models with modified volatility distribution which differentiate from the standard Gaussian perform better under likelihood measurement. The best fitting one with post-COVID19 data is BVAR-t-SV. The stochastic process captures the time persistence of volatility, which is evident in variables such as short term interest rate(Ball and Torous,1999). A multivariate-t distributed error, with relatively fatter tails, can recognize some extreme volatility as temporary spikes instead of persistent effect. The forecast focus on inflation and interest rate due to their strong relevance to policy making and people's daily lives. Many challenges arise post-COVID for government to facilitate the revitalization of the economy, where forecast plays its roles.
 
 # Data
 
-All data is obtained from the RBA. Daily or monthly data is converted to quaterly format by averaging. Following Chan(2017, other than cash rate and unemployment, variables will be transformed using log difference times 400 in BVAR. These are some standard variables to include in a macroeconomics forecast:
+All data is obtained from the RBA. Daily or monthly data is converted to quarterly format by averaging. Following Chan(2017, other than cash rate and unemployment, variables will be transformed using log difference times 400 in BVAR. These are some standard variables to include in a macroeconomics forecast:
 
 **Cash rate:** the cash rate target in percent (series_id:FIRMMCRTD)
 
@@ -41,6 +41,7 @@ The data window covers 1990 Q1 to 2023 Q4, as the most up-to-date post-COVID dat
 ```{r obtain data}
 #| echo: false
 #| message: false
+#| warning: false
 
 install.packages("readrba")
 library(readrba)
@@ -96,7 +97,8 @@ cr <- cr %>% filter(Quarter != "2024Q1")
 ```{r combine data}
 #| echo: false
 #| message: false
-#| 
+#| #| warning: false
+
 library(dplyr)
 
 # Assuming tibble1, tibble2, tibble3 are your tibbles
@@ -223,6 +225,7 @@ acf(data_trans$cr)
 acf(data_trans$un_em)
 
 ```
+
 ```{r PACF}
 #| echo: false
 #| message: false
@@ -275,7 +278,7 @@ kbl(adf_res) %>%
 
 # Model
 
-Here presents the Bayesian VAR with Stochastic Student-t volatility, the general form of a VAR(p), as in Hartwig(2022):
+Here presents the Bayesian VAR with Stochastic Student-t volatility, the general form of a VAR(p):
 
 $$y_t = a_0 +A_1y_{t-1}+...+A_py_{t-p}+ \epsilon_t $$
 
@@ -283,4 +286,12 @@ where $y_t$ is a $n \times 1$ vector and $n$ is the number of variables. $a_0$ i
 
 $$Y = XA+E$$ where $Y_{T \times n}=(y_1', y_2',...,y_T')'$, $X_{T \times K}=(x_1', x_2',...,x_T')'$. Each $x_{K \times 1}=(1, y_{t-1}',...,y_{t-p}')'$. $A$ is a compact coefficient matrix $A_{K \times n}=(a_0', A_1',...,A_p')'$ and $E_{T \times n}=(\epsilon_1', \epsilon_2',...,\epsilon_T')'$. Note, $K = 1+pn$.
 
-References {.unnumbered}
+In standard form, the error term is normally distributed $\epsilon_t \sim iidN(0, \Sigma)$, or $E \sim MN(0, \Sigma \otimes I_T)$. $\Sigma$ is a $n \times n$ covariance matrix and $I_T$ is an $T \times T$ identity matrix. In this paper, following Hartwig(2022), I use the specification:
+
+$$\epsilon_t \sim N(0, \Sigma \cdot \lambda_t \cdot exp(h_t))$$
+
+where $\lambda_t \sim IG(\nu/2,\nu/2)$ and $h_t$ follows: $h_t = \rho h_{t-1}+ \epsilon^{h}_{t}$, with $|\rho|< 1$ and $\epsilon^{h}_{t} \sim N(0, \sigma^{2}_h)$. Then the compact distribution of $E \sim MN(0,\Sigma \otimes \Omega)$, $\Omega = diag(\lambda_1exp(h_1), \lambda_2exp(h_2),...,\lambda_Texp(h_T))$.
+
+## Bayesian Estimation
+
+# References {.unnumbered}
