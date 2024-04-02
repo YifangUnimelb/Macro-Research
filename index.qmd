@@ -26,13 +26,13 @@ All data is obtained from the RBA. Daily or monthly data is converted to quaterl
 
 **Cash rate:** the cash rate target in percent (series_id:FIRMMCRTD)
 
-**Money aggregate(M1):** the seasonal adjusted M1 aggregate in $billion (series_id:DMAM1S)
+**Money aggregate(M1):** the seasonal adjusted M1 aggregate in \$billion (series_id:DMAM1S)
 
-**Money aggregate(M3):** the seasonal adjusted M3 aggregate in $billion (series_id:DMAM3S)
+**Money aggregate(M3):** the seasonal adjusted M3 aggregate in \$billion (series_id:DMAM3S)
 
 **Consumer Price Index** Consumer Price Index (series_id:GCPIAG)
 
-**Real GDP:** Gross Domestic Product in real terms in $million (series_id:GGDPCVGDP)
+**Real GDP:** Gross Domestic Product in real terms in \$million (series_id:GGDPCVGDP)
 
 **Unemployment:** Unemployment rate in percent (series_id:GLFSUPSA)
 
@@ -121,14 +121,92 @@ data_trans <- data_trans %>% select(date, cpi_log, gdp_log, m1_log, m3_log, cr, 
 
 ## Time Series Plot
 
-```{r time series plot}
+```{r fig.width=5, fig.height=5}
 #| echo: false
 #| message: false
+#| warning: false
+
+install.packages("patchwork")
+library(ggplot2)
+library(patchwork)
+
+theme_set(theme_bw())
+
+pcpi <- ggplot(data, aes(date,cpi)) + geom_line(size = 0.25)+labs(title = "CPI") +
+  theme(plot.title = element_text(size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8))
+
+pgdp <- ggplot(data, aes(date,gdp)) + geom_line(size = 0.25)+labs(title = "GDP") +
+  theme(plot.title = element_text(size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8))
+
+
+pm1 <- ggplot(data, aes(date,m1)) +geom_line(size = 0.25)+labs(title = "M1") +
+  theme(plot.title = element_text(size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8))
+
+pm3 <- ggplot(data, aes(date,m3)) + geom_line(size = 0.25)+labs(title = "M3") +
+  theme(plot.title = element_text(size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8))
+
+pcr <- ggplot(data, aes(date,cr)) + geom_line(size = 0.25)+labs(title = "cash rate") +
+  theme(plot.title = element_text(size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8))
+
+pun_em <- ggplot(data, aes(date,un_em)) + geom_line(size = 0.25)+labs(title = "unemployment rate") +
+  theme(plot.title = element_text(size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8))
+
+ 
+(pcpi + pgdp )/(pm1 + pm3 )/(pcr + pun_em)
 
 ```
-huh
+
+```{r fig.width=5, fig.height=3.5}
+#| echo: false
+#| message: false
+#| warning: false
+
+install.packages("patchwork")
+library(ggplot2)
+library(patchwork)
+
+theme_set(theme_bw())
+
+pcpil <- ggplot(data_trans, aes(date,cpi_log)) + geom_line(size = 0.25)+labs(title = "log difference CPI") +
+  theme(plot.title = element_text(size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8))
+
+pgdpl <- ggplot(data_trans, aes(date,gdp_log)) + geom_line(size = 0.25)+labs(title = "log difference GDP") +
+  theme(plot.title = element_text(size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8))
+
+
+pm1l <- ggplot(data_trans, aes(date,m1_log)) +geom_line(size = 0.25)+labs(title = "log difference M1") +
+  theme(plot.title = element_text(size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8))
+
+pm3l <- ggplot(data_trans, aes(date,m3_log)) + geom_line(size = 0.25)+labs(title = "log difference M3") +
+  theme(plot.title = element_text(size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8))
+ 
+(pcpil + pgdpl )/(pm1l + pm3l )
+
+```
 
 ## ACF and PACF
+
+
 
 huh
 
